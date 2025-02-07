@@ -1,0 +1,147 @@
+<nav class="w-full bg-gradient-to-r from-blue-100 to-white border-b shadow-sm ">
+  <div class="container mx-auto flex items-center justify-between py-4 px-4 md:px-8">
+    <div class="flex items-center gap-4 w-full md:w-auto">
+      <span class="text-4xl font-bold text-sky-900">mario</span>
+      <div class="flex items-center gap-4 md:gap-6 mt-4 md:mt-2 text-sm ml-4">
+
+        <button routerLink="/health-care">Health Care</button>
+
+        <span>Prescription Savings</span>
+
+      </div>
+    </div>
+    <div class="flex items-center gap-4 md:gap-6 mt-4 md:mt-0">
+      <ng-container *ngIf="user; else notLoggedIn">
+        <span class="text-gray-700 font-medium">{{ user.email }}</span>
+        <button (click)="logout()" class="border px-4 py-1 rounded-md bg-red-600 text-white">
+          Logout
+        </button>
+      </ng-container>
+
+      <ng-template #notLoggedIn>
+        <button routerLink="/login" class="border px-4 py-1 rounded-md">Sign in</button>
+        <button routerLink="/sign-up" class="border px-4 py-1 rounded-md bg-teal-600 text-white">Sign up</button>
+      </ng-template>
+    </div>
+
+
+  </div>
+</nav>
+<div class="">
+
+  <section class="bg-gradient-to-r from-blue-100 to-white py-16 text-center mb-16">
+    <div class="container mx-auto px-4 mb-16">
+      <h1 class="text-3xl md:text-4xl font-bold">Find and Compare Healthcare Prices</h1>
+      <p class="text-gray-600 mt-4">Search medications, procedures, and providers to find the best prices near you</p>
+
+      <div class="mt-6 flex flex-col md:flex-row items-center justify-center gap-4">
+        <!-- <input type="text" placeholder="Search medications, procedures, or providers" class="border p-3 rounded w-full md:w-96"> -->
+        <div class="relative w-full md:w-96">
+          <input
+            type="text"
+            placeholder="Search medications..."
+            [(ngModel)]="searchQuery"
+            (input)="onSearch()"
+            class="border p-3 rounded w-full"
+          />
+
+          <ul *ngIf="searchResults.length > 0" class="absolute bg-white border w-full mt-1 rounded shadow-lg z-10">
+            <li *ngFor="let result of searchResults"
+                (click)="selectDrug(result)"
+                class="p-2 hover:bg-gray-100 cursor-pointer">
+              {{ result.name }}
+            </li>
+          </ul>
+        </div>
+
+
+
+
+        <select class="border p-3 rounded">
+          <option>Select Insurance</option>
+        </select>
+        <button (click)="searchDrug()" class="bg-black text-white px-6 py-3 mt-1 rounded">
+          Search
+        </button>
+      </div>
+    </div>
+  </section>
+  <section class="container mx-auto px-4 mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center mb-16 max-w-screen-lg">
+    <div>
+      <div class="text-3xl">💊</div>
+      <h3 class="font-bold mt-2">Compare Medication Prices</h3>
+      <p class="text-gray-600 mt-2">Find the best prices for your prescriptions across pharmacies.</p>
+    </div>
+    <div>
+      <div class="text-3xl">🏥</div>
+      <h3 class="font-bold mt-2">Healthcare Services</h3>
+      <p class="text-gray-600 mt-2">Compare costs for procedures and medical services.</p>
+    </div>
+    <div>
+      <div class="text-3xl">🩺</div>
+      <h3 class="font-bold mt-2">Find Providers</h3>
+      <p class="text-gray-600 mt-2">Locate healthcare providers in your area.</p>
+    </div>
+  </section>
+
+  <section class="bg-gray-800 text-white py-12 text-center mb-12">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <h3 class="text-2xl font-bold">$4.3T</h3>
+        <p class="text-gray-400">U.S. Healthcare Spending</p>
+      </div>
+      <div>
+        <h3 class="text-2xl font-bold">86%</h3>
+        <p class="text-gray-400">Frustrated by Pricing</p>
+      </div>
+      <div>
+        <h3 class="text-2xl font-bold">50K+</h3>
+        <p class="text-gray-400">Healthcare Providers</p>
+      </div>
+      <div>
+        <h3 class="text-2xl font-bold">1M+</h3>
+        <p class="text-gray-400">Price Comparisons</p>
+      </div>
+    </div>
+  </section>
+  <section class="bg-blue-100 py-12 text-center mb-12">
+    <div class="container mx-auto">
+      <h2 class="text-2xl font-bold">Ready to Save on Healthcare?</h2>
+      <p class="text-gray-600 mt-2">Join thousands of people who are saving money on their healthcare expenses with Mario Health.</p>
+      <button class="bg-black text-white px-6 py-3 mt-4 rounded">Get Started</button>
+    </div>
+  </section>
+  <footer class="bg-gray-900 text-white py-8">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
+      <div>
+        <h3 class="font-bold">Mario Health</h3>
+        <p class="text-gray-400 mt-2">Making healthcare pricing transparent for everyone.</p>
+      </div>
+      <div>
+        <h3 class="font-bold">Company</h3>
+        <ul class="text-gray-400 mt-2">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold">Resources</h3>
+        <ul class="text-gray-400 mt-2">
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold">Connect</h3>
+        <div class="flex justify-center md:justify-start gap-4 mt-2">
+          <a href="#" class="text-gray-400">🐦</a>
+          <a href="#" class="text-gray-400">📘</a>
+          <a href="#" class="text-gray-400">📷</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>

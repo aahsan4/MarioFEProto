@@ -1,0 +1,114 @@
+<nav class="w-full bg-gradient-to-r from-blue-100 to-white border-b shadow-sm ">
+  <div class="container mx-auto flex items-center justify-between py-4 px-4 md:px-8">
+    <div class="flex items-center gap-4 w-full md:w-auto">
+      <span class="text-4xl font-bold text-sky-900">mario</span>
+      <div class="flex items-center gap-4 md:gap-6 mt-4 md:mt-2 text-sm ml-4">
+
+        <button routerLink="/health-care">Health Care</button>
+
+        <span>Prescription Savings</span>
+
+      </div>
+    </div>
+
+
+
+  </div>
+</nav>
+<div class="min-h-screen bg-gradient-to-r from-blue-100 to-white flex items-center justify-center px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl w-full bg-white p-6 sm:p-8 shadow-xl rounded-lg mt-3">
+    <div class="text-center mb-6">
+      <h2 class="text-3xl font-bold text-gray-900">Create Your Account</h2>
+      <p class="text-sm text-gray-600 mt-2">Enter your details to sign up</p>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="successMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded mb-4">
+      {{ successMessage }}
+    </div>
+
+    <form (ngSubmit)="addUser()" #signupForm="ngForm" class="space-y-4">
+      <!-- Account Information -->
+      <h3 class="text-lg font-semibold text-gray-700">Account Information</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input id="email" name="email" type="email" required [(ngModel)]="user.email"
+            class="mt-1 w-full px-4 py-1.5 border border-gray-300 rounded-lg shadow-sm">
+        </div>
+        <div>
+          <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+          <input id="phone" name="phone" type="tel" required [(ngModel)]="user.phone"
+            class="mt-1 w-full px-4 py-1.5 border border-gray-300 rounded-lg shadow-sm">
+        </div>
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+        <input id="password" name="password" type="password" required [(ngModel)]="user.password"
+          class="mt-1 w-full px-4 py-1.5 border border-gray-300 rounded-lg shadow-sm">
+      </div>
+
+      <!-- Personal Information -->
+      <h3 class="text-lg font-semibold text-gray-700">Personal Information</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="age" class="block text-sm font-medium text-gray-700">Age</label>
+          <input id="age" name="age" type="number" required [(ngModel)]="user.age"
+            class="mt-1 w-full px-4 py-1.5 border border-gray-300 rounded-lg shadow-sm">
+        </div>
+        <div>
+          <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+          <select id="gender" name="gender" required [(ngModel)]="user.gender"
+            class="mt-1 w-full px-4 py-1.5 border border-gray-300 rounded-lg shadow-sm">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Insurance Information -->
+      <h3 class="text-lg font-semibold text-gray-700">Insurance Information</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div>
+          <label for="deductible" class="block text-sm font-medium text-gray-700">Annual Deductible</label>
+          <input id="deductible" name="deductible" type="number" required [(ngModel)]="user.deductible"
+            class="mt-1 w-full px-4 py-1.5 border border-gray-300 rounded-lg shadow-sm">
+        </div>
+        <div>
+          <label for="outOfPocket" class="block text-sm font-medium text-gray-700">Out-of-pocket Maximum</label>
+          <input id="outOfPocket" name="outOfPocket" type="number" required [(ngModel)]="user.outOfPocket"
+            class="mt-1 w-full px-4 py-1.5 border border-gray-300 rounded-lg shadow-sm">
+        </div>
+        <div>
+          <label for="healthSpending" class="block text-sm font-medium text-gray-700">Intended Healthcare Spending</label>
+          <input id="healthSpending" name="healthSpending" type="number" required [(ngModel)]="user.healthSpending"
+            class="mt-1 w-full px-4 py-1.5 border border-gray-300 rounded-lg shadow-sm">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="fsaHsa" class="block text-sm font-medium text-gray-700">FSA/HSA Balance</label>
+          <input id="fsaHsa" name="fsaHsa" type="number" required [(ngModel)]="user.fsaHsa"
+            class="mt-1 w-full px-4 py-1.5 border border-gray-300 rounded-lg shadow-sm">
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mt-4">
+        <button type="submit"
+          class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+          Sign Up
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
