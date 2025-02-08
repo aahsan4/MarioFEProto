@@ -12,6 +12,7 @@
     </div>
     <div class="flex items-center gap-4 md:gap-6 mt-4 md:mt-0">
       <ng-container *ngIf="user; else notLoggedIn">
+
         <span class="text-gray-700 font-medium">{{ user.email }}</span>
         <button (click)="logout()" class="border px-4 py-1 rounded-md bg-red-600 text-white">
           Logout
@@ -86,7 +87,16 @@
   <!-- Price Section -->
   <div class="mt-6 p-6 border rounded-lg text-cyan-800">
     <h2 class="text-xl font-bold">Mario's Pick</h2>
-    <p class="text-2xl font-bold">{{ mario_price }} $</p>
+    <p *ngIf="saving < 0" class="text-2xl font-bold">
+      {{ selectedDrug.mrp }}
+    </p>
+
+    <p *ngIf="saving > 0" class="text-2xl font-bold">
+      ${{ mario_price }}
+    </p>
+
+
+
     <p class="text-gray-600">Cost Plus Drugs →</p>
     <p class="text-sm text-gray-500 mt-2">
       We recommend paying out of pocket. We chose Cost Plus Drugs because we don’t have your insurance information.
@@ -94,24 +104,33 @@
   </div>
 
   <!-- Payment Options -->
-  <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="border p-4 rounded-lg">
-      <h3 class="font-semibold">Paying without insurance</h3>
-      <p class="text-xl font-bold">{{ selectedDrug.mrp }}</p>
-      <p *ngIf="saving > 0" class="text-lg font-semibold text-green-600 mt-3">Saving : {{ saving }} $</p>
+  <div class="mt-6 flex flex-col md:flex-row gap-6 items-stretch">
+    <!-- Paying Without Insurance -->
+    <div class="border p-6 rounded-xl shadow-md flex-1 bg-white">
+      <h3 class="font-semibold text-lg mb-2">Paying Without Insurance</h3>
+      <p class="text-xl font-bold text-cyan-800">{{ selectedDrug.mrp }} </p>
 
-      <p *ngIf="saving < 0" class="text-red-600 font-semibold mt-2">
-        You should buy without insurance
+      <p *ngIf="saving > 0" class="text-lg font-semibold text-green-600 mt-3">
+        Saving: {{ saving.toFixed(2) }} $
       </p>
 
+      <p *ngIf="saving < 0" class="text-green-600 font-semibold mt-2">
+        You should buy without insurance
+      </p>
     </div>
 
+    <div class="border p-6 rounded-xl shadow-md flex-1 bg-white">
+      <h3 class="font-semibold text-lg mb-2">Paying With Insurance</h3>
+      <p class="text-2xl font-bold text-cyan-800">${{ mario_price }} </p>
 
+      <p class="text-gray-500 text-sm mt-2">
+        Without your insurance information, Mario cannot provide an accurate estimate of your costs when using insurance.
+      </p>
+    </div>
 
-    <div class="bg-white shadow-lg rounded-2xl p-3 max-w-md mx-auto">
+    <!-- Cost Summary -->
+    <div class="border p-6 rounded-xl shadow-md flex-1 bg-white">
       <h2 class="text-2xl font-semibold text-gray-800 text-center mb-4">Cost Summary</h2>
-
-
 
       <div class="flex justify-between items-center border-b pb-3 mb-3">
         <span class="text-gray-600 font-medium">Health Spending:</span>
@@ -124,14 +143,8 @@
       </div>
     </div>
 
+    <!-- Paying With Insurance -->
 
-
-
-    <div class="border p-4 rounded-lg">
-      <h3 class="font-semibold">Paying with insurance</h3>
-      <p class="text-gray-500 text-sm">
-        Without your insurance information, Mario cannot provide an accurate estimate of your costs when using insurance.
-      </p>
-    </div>
   </div>
+
 </div>
