@@ -94,7 +94,10 @@
     <p *ngIf="saving > 0" class="text-2xl font-bold">
       ${{ mario_price }}
     </p>
-
+    
+    <p *ngIf="saving > 0" class="text-lg font-semibold text-green-600 mt-3">
+        Saving: {{ saving.toFixed(2) }} $
+    </p>
 
 
     <p class="text-gray-600">Cost Plus Drugs →</p>
@@ -110,9 +113,7 @@
       <h3 class="font-semibold text-lg mb-2">Paying Without Insurance</h3>
       <p class="text-xl font-bold text-cyan-800">{{ selectedDrug.mrp }} </p>
 
-      <p *ngIf="saving > 0" class="text-lg font-semibold text-green-600 mt-3">
-        Saving: {{ saving.toFixed(2) }} $
-      </p>
+      
 
       <p *ngIf="saving < 0" class="text-green-600 font-semibold mt-2">
         You should buy without insurance
