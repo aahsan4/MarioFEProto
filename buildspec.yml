@@ -1,12 +1,19 @@
 version: 0.2
 phases:
   install:
+    runtime-versions:
+      nodejs: 20
+  pre_build:
     commands:
-      - npm install -g @angular/cli
       - npm install
   build:
     commands:
       - ng build --configuration=production
   post_build:
     commands:
-      - aws s3 sync dist/MarioFEProto s3://mariofrontendbucket --delete
+      - echo "Build completed successfully."
+artifacts:
+  files:
+    - "**/*"
+  base-directory: "dist/MarioFEProto"
+  discard-paths: no
