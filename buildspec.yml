@@ -9,4 +9,4 @@ phases:
       - ng build --configuration=production
   post_build:
     commands:
-      - aws s3 sync dist/your-angular-app s3://my-angular-app --delete
+      - aws s3 sync dist/MarioFEProto s3://mariofrontendbucket --delete
