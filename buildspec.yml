@@ -13,8 +13,9 @@ phases:
   post_build:
     commands:
       - echo "Build completed successfully."
+      - aws s3 sync dist/mario-heath-fe s3://mariofrontendbucket --delete
 artifacts:
   files:
     - "**/*"
-  base-directory: "dist/MarioFEProto"
+  base-directory: "dist/mario-heath-fe"
   discard-paths: no
