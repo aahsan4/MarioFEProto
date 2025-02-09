@@ -1,0 +1,12 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - npm install -g @angular/cli
+      - npm install
+  build:
+    commands:
+      - ng build --configuration=production
+  post_build:
+    commands:
+      - aws s3 sync dist/your-angular-app s3://my-angular-app --delete
