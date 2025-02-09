@@ -1,0 +1,21 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+        nodejs: 20
+  pre_build:
+    commands:
+      - npm install -g @angular/cli
+      - npm install
+  build:
+    commands:
+      - ng build --configuration=production
+  post_build:
+    commands:
+      - echo "Build completed successfully."
+      - aws s3 sync dist/mario-heath-fe s3://mariofrontendbucket --delete
+artifacts:
+  files:
+    - "**/*"
+  base-directory: "dist/mario-heath-fe"
+  discard-paths: no
