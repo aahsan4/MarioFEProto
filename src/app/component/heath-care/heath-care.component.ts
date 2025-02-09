@@ -3,6 +3,7 @@ import { HealthCareService } from '../../../service/health-care.service';  // Im
 import { LoginService } from '../../../service/login.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-heath-care',
   templateUrl: './heath-care.component.html',
@@ -22,7 +23,10 @@ export class HeathCareComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.fetchHospitals();  // Fetch all hospitals initially
+    this.fetchHospitals();
+    this.loginService.user$.subscribe(user => {
+      this.user = user;
+    });  // Fetch all hospitals initially
   }
 
   // Logout method
