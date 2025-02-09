@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class SignupService {
-  private apiUrl = 'http://localhost:3000/api/users/signup'; // Adjust URL based on backend
+  private apiUrl = 'http://mariobackend-env.eba-eefm6dxx.us-east-2.elasticbeanstalk.com/api/users/signup'; // Adjust URL based on backend
 
   constructor(private http: HttpClient) {}
 

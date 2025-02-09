@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HealthCareService {
-  private baseUrl = 'http://localhost:3000/api/hospitals'; // Change if needed
+  private baseUrl = 'http://mariobackend-env.eba-eefm6dxx.us-east-2.elasticbeanstalk.com/api/hospitals'; // Change if needed
 
   constructor(private http: HttpClient) { }
 

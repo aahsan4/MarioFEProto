@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class LoginService {
-  private apiUrl = 'http://localhost:3000/api/users/login';
+  private apiUrl = 'http://mariobackend-env.eba-eefm6dxx.us-east-2.elasticbeanstalk.com/api/users/login';
   private userSubject = new BehaviorSubject<any>(null);
   user$ = this.userSubject.asObservable();
 
