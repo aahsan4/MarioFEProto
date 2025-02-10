@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HealthCareService } from '../../../service/health-care.service';  // Import the HealthCareService
+import { HealthCareService } from '../../../service/health-care.service';
 import { LoginService } from '../../../service/login.service';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-heath-care',
@@ -15,40 +14,59 @@ export class HeathCareComponent implements OnInit {
   hospitals: any[] = [];
   searchName: string = '';
   searchProcedure: string = '';
+  filteredHospitals: any[] = [];
+  suggestions: string[] = [];
 
   constructor(
-    private healthCareService: HealthCareService,  // Inject the service
+    private healthCareService: HealthCareService,
     private loginService: LoginService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.fetchHospitals();
     this.loginService.user$.subscribe(user => {
       this.user = user;
-    });  // Fetch all hospitals initially
+    });
+
+    this.fetchHospitals(); // Fetch hospital data on component load
   }
 
-  // Logout method
-  logout(): void {
-    this.loginService.logout();
-  }
-
-  // Method to fetch hospitals with optional search parameters
+  // Fetch hospitals from service
   fetchHospitals(): void {
-    this.healthCareService.getAllHospitals(this.searchName, this.searchProcedure).subscribe(
-      (data) => {
-        this.hospitals = data;
-      },
-      (error) => {
-        console.error('Error fetching hospitals:', error);
-      }
+    this.healthCareService.getHospitals().subscribe(data => {
+      this.hospitals = data;
+      this.filteredHospitals = [...this.hospitals]; // Show all hospitals by default
+    });
+  }
+
+  // Search functionality
+  onSearch(): void {
+    this.filteredHospitals = this.hospitals.filter(hospital =>
+      (!this.searchName || hospital.Name.toLowerCase().includes(this.searchName.toLowerCase())) &&
+      (!this.searchProcedure || hospital.Category.toLowerCase().includes(this.searchProcedure.toLowerCase()))
     );
   }
 
-  // Trigger search when the user clicks the search button
-  onSearch(): void {
-    this.fetchHospitals();
+  // Show suggestions as user types
+  onSearchInputChange(): void {
+    if (!this.hospitals.length) return;
+
+    this.suggestions = this.hospitals
+      .map(hospital => hospital.Name)
+      .filter((name, index, self) =>
+        self.indexOf(name) === index && name.toLowerCase().includes(this.searchName.toLowerCase())
+      );
   }
 
+  // Function to handle suggestion selection
+selectSuggestion(suggestion: string): void {
+  this.searchName = suggestion;
+  this.suggestions = []; // Clear suggestions after selection
+}
+
+
+  // Logout user
+  logout(): void {
+    this.loginService.logout();
+  }
 }
