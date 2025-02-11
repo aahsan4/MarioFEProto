@@ -16,6 +16,8 @@ export class HeathCareComponent implements OnInit {
   searchProcedure: string = '';
   filteredHospitals: any[] = [];
   suggestions: string[] = [];
+  procedureSuggestions: string[] = [];
+  selectedProcedure: any = null;
 
   constructor(
     private healthCareService: HealthCareService,
@@ -49,6 +51,15 @@ export class HeathCareComponent implements OnInit {
 
   // Show suggestions as user types
   onSearchInputChange(): void {
+    if (!this.searchName.trim()) {
+      this.suggestions = []; // Clear suggestions if input is empty
+      return;
+    }
+
+    // Clear procedure input when name is being typed
+    this.searchProcedure = '';
+    this.procedureSuggestions = [];
+
     if (!this.hospitals.length) return;
 
     this.suggestions = this.hospitals
@@ -58,12 +69,48 @@ export class HeathCareComponent implements OnInit {
       );
   }
 
-  // Function to handle suggestion selection
-selectSuggestion(suggestion: string): void {
-  this.searchName = suggestion;
-  this.suggestions = []; // Clear suggestions after selection
-}
+  // Select a name suggestion
+  selectSuggestion(suggestion: string): void {
+    this.searchName = suggestion;
+    this.suggestions = []; // Clear suggestions after selection
+  }
 
+  // Show procedure suggestions as user types
+  onProcedureInputChange(): void {
+    if (!this.searchProcedure.trim()) {
+      this.procedureSuggestions = []; // Clear procedure suggestions if input is empty
+      return;
+    }
+
+    // Clear name input when procedure is being typed
+    this.searchName = '';
+    this.suggestions = [];
+
+    if (!this.hospitals.length) return;
+
+    this.procedureSuggestions = this.hospitals
+      .map(hospital => hospital.Category)
+      .filter((category, index, self) =>
+        self.indexOf(category) === index && category.toLowerCase().includes(this.searchProcedure.toLowerCase())
+      );
+  }
+
+  // Select a procedure suggestion
+  selectProcedureSuggestion(procedure: string): void {
+    this.searchProcedure = procedure;
+    this.procedureSuggestions = []; // Clear suggestions after selection
+    this.selectedProcedure = this.hospitals.find(hospital => hospital.Category === procedure);
+  }
+
+  // Clear all suggestions
+  clearSuggestions(): void {
+    this.suggestions = [];
+  }
+
+  // Clear procedure suggestions
+  clearProcedureSuggestions(): void {
+    this.procedureSuggestions = [];
+  }
 
   // Logout user
   logout(): void {
